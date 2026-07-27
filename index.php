@@ -42,13 +42,23 @@ $hotels = [
 
 // var_dump($hotels);
 
+
+// PARCHEGGIO
 $parkingIsPresent = false;
 
 if (isset($_GET['parking']) && $_GET['parking'] === 'on') {
     $parkingIsPresent = true;
 }
-
 // var_dump($parkingIsPresent);
+
+
+// VOTO
+$minimum_vote = 0;
+if (isset($_GET['minimum_vote']) && is_numeric($_GET['minimum_vote']) && $_GET['minimum_vote'] >= 0 && $_GET['minimum_vote'] <= 5) {
+    // echo "Voto minimo: " . $_GET['minimum_vote'] ;
+    $minimum_vote = (int)$_GET['minimum_vote'];
+}
+var_dump($minimum_vote);
 ?>
 
 
@@ -96,6 +106,9 @@ if (isset($_GET['parking']) && $_GET['parking'] === 'on') {
                         }
                     }
 
+                    if (!($hotel['vote'] >= $minimum_vote)) {
+                        continue;
+                    }
 
                     echo "<tr>";
                     echo "<td>{$hotel['name']}</td>";
@@ -114,9 +127,15 @@ if (isset($_GET['parking']) && $_GET['parking'] === 'on') {
 
     <div class="d-flex  justify-content-center m-4">
         <form class="border p-3" action="">
-            <input type="checkbox" name="parking" id="parking">
-            <label for="parking">Hotel con parcheggio</label>
-            <br>
+            <div class="form-control">
+                <input type="checkbox" name="parking" id="parking">
+                <label for="parking">Hotel con parcheggio</label>
+            </div>
+            <div class="form-control">
+                <label for="minimum_vote">Voto minimo</label>
+                <input type="number" min="1" max="5" name="minimum_vote" id="minimum_vote">
+            </div>
+
             <button type="submit" class="btn btn-primary mt-2 d-flex mx-auto">Filtra</button>
         </form>
     </div>
