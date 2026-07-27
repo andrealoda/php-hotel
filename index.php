@@ -40,6 +40,15 @@ $hotels = [
 
 ];
 
+// var_dump($hotels);
+
+$parkingIsPresent = false;
+
+if (isset($_GET['parking']) && $_GET['parking'] === 'on') {
+    $parkingIsPresent = true;
+}
+
+// var_dump($parkingIsPresent);
 ?>
 
 
@@ -80,6 +89,14 @@ $hotels = [
             <tbody>
                 <?php
                 foreach ($hotels as $hotel) {
+
+                    if ($parkingIsPresent) {
+                        if (!$hotel['parking']) {
+                            continue;
+                        }
+                    }
+
+
                     echo "<tr>";
                     echo "<td>{$hotel['name']}</td>";
                     echo "<td>{$hotel['description']}</td>";
@@ -92,6 +109,21 @@ $hotels = [
             </tbody>
         </table>
     </div>
+
+    <h2 class="text-center">Filtra gli hotel</h2>
+
+    <div class="d-flex  justify-content-center m-4">
+        <form class="border p-3" action="">
+            <input type="checkbox" name="parking" id="parking">
+            <label for="parking">Hotel con parcheggio</label>
+            <br>
+            <button type="submit" class="btn btn-primary mt-2 d-flex mx-auto">Filtra</button>
+        </form>
+    </div>
+
+
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
