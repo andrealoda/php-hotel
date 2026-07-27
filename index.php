@@ -54,7 +54,7 @@ $hotels = [
 </head>
 
 <body>
-    <h1 class="text-center">HOTELS</h1>
+    <h1 class="text-center mt-4 fw-bold">- HOTELS -</h1>
 
     <!-- <?php
 
